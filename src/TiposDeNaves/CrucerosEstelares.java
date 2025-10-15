@@ -2,8 +2,11 @@ package TiposDeNaves;
 
 public class CrucerosEstelares extends Nave{ 
     
-    public CrucerosEstelares(String nombre, int capacidadDeTripulación, int añoDeLanzamiento) {
+    private int CantidadPasajeros;
+    
+    public CrucerosEstelares(String nombre, int capacidadDeTripulación, int añoDeLanzamiento,int cantPasajeros) {
         super(nombre, capacidadDeTripulación, añoDeLanzamiento);
+        this.CantidadPasajeros = cantPasajeros;
     }
     
 }
