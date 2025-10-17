@@ -45,6 +45,16 @@ public class ListaNaves {
         return false;
     }
     
+    public Nave buscarNavePorNombre(String nombre){
+        for (int i = 0; i < getListaNaves().size(); i++){
+            Nave naveActual = getListaNaves().get(i);
+            if(naveActual.getNombre().equalsIgnoreCase(nombre))
+                return naveActual;
+        } 
+        return null;
+
+    }
+    
     public TiposDeNave tipoDeNave(String nombre){
         for (int i = 0; i < getListaNaves().size(); i++){
             Nave naveActual = getListaNaves().get(i);

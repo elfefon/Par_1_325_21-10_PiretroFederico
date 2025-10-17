@@ -1,16 +1,7 @@
 package Logica;
 
-public class Sistema implements Exploracion {
-    
-    public void iniciarExploracion(){
-        explorar();
-    }
-
-    @Override
-    public void explorar() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-    
+public class Sistema{
+  
     //manejo y simplificacion de input
                         
     public int inputTipoNave(String tipo){

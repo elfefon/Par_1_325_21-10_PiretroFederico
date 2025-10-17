@@ -16,7 +16,11 @@ public class Nave {
         this.añoDeLanzamiento = añoDeLanzamiento;
         this.tipoNave = tipoNave;
     }
-
+    
+    public void iniciarMision(){
+        System.out.println("No existe la posibilidad de iniciar una mision.");
+    }
+    
     @Override
     public String toString() {
         return "Nave{" + "nombre=" + nombre + ", capacidadDeTripulación=" + capacidadDeTripulación + ", añoDeLanzamiento=" + añoDeLanzamiento + ", tipoNave=" + tipoNave + '}';

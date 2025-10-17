@@ -15,9 +15,16 @@ public class NaveExploracion extends Nave implements Exploracion {
 
     @Override
     public void explorar() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        System.out.println("Se ha iniciado la exploracion.");
     }
 
+    @Override
+    public void iniciarMision() {
+        this.explorar();
+    }
+    
+    
+    
     @Override
     public String toString() {
         return "nave :" + tipoNave + " | nombre: " + nombre + " | año de lanzamiento: " 

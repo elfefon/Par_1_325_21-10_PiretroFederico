@@ -5,6 +5,7 @@ import Logica.TiposDeMision;
 import Logica.TiposDeNave;
 import TiposDeNaves.Cargueros;
 import TiposDeNaves.CrucerosEstelares;
+import TiposDeNaves.Nave;
 import TiposDeNaves.NaveExploracion;
 import java.util.Scanner;
 
@@ -154,16 +155,18 @@ public class Main {
                 case 4 -> {
                     try{
                         System.out.println("¿Que nave quiere que realice exploracion? (ingrese nombre): ");
-                        String nombreExploraracion = sc.nextLine();
-                        TiposDeNave tipoNaveIngresada = ln.tipoDeNave(nombreExploraracion);
-                        if (tipoNaveIngresada.equals(TiposDeNave.cargueros)){
-                        }else if(tipoNaveIngresada.equals(TiposDeNave.crucerosEstelares)){
-                        }else if(tipoNaveIngresada.equals(TiposDeNave.naveExploracion)){
-                        }else{
-                            System.out.println("No se ha encontrado, intente de nuevo.");
+                        String nombreNave = sc.nextLine();
+                        Nave naveEncontrada = ln.buscarNavePorNombre(nombreNave);
+
+                        if (naveEncontrada != null) {
+                            naveEncontrada.iniciarMision();
+                        } else {
+                            System.out.println("No se encontro ninguna nave con ese nombre.");
                         }
+                        break;                        
+
                     }catch(Exception e){
-                    
+                        System.out.println("Ingrese un nombre. ");
                     }
                     break;
                 }
@@ -174,7 +177,7 @@ public class Main {
                     break;
                 }
                 }    
-            }catch(NumberFormatException e){
+            }catch(NumberFormatException e){ //averiguar porque sale siempre despues de un input
                 System.out.println("Ingrese un numero (1, 2, 3, 4 o 5)");
             }
         }while(corriendo == true);
