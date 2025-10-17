@@ -21,6 +21,23 @@ public class Nave {
     public String toString() {
         return "Nave{" + "nombre=" + nombre + ", capacidadDeTripulación=" + capacidadDeTripulación + ", añoDeLanzamiento=" + añoDeLanzamiento + ", tipoNave=" + tipoNave + '}';
     }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public int getCapacidadDeTripulación() {
+        return capacidadDeTripulación;
+    }
+
+    public int getAñoDeLanzamiento() {
+        return añoDeLanzamiento;
+    }
+
+    public TiposDeNave getTipoNave() {
+        return tipoNave;
+    }
+    
     
     
     
