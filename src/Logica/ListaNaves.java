@@ -22,5 +22,12 @@ public class ListaNaves {
         }
     }
     
+    public void eliminarNavePorNombre(String nombre){
+        
+        
+        
+    }
+        
+    
     
 }
