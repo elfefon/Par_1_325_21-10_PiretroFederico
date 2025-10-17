@@ -25,11 +25,5 @@ public class Sistema implements Exploracion {
             return 0;
         }
     }
-    
-    
-    
-    
-    
-    
         
 }
