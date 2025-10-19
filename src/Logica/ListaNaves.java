@@ -26,6 +26,15 @@ public class ListaNaves {
         }
     }
     
+    public Nave buscarNavePorNombre(String nombre){
+        for (int i = 0; i < getListaNaves().size(); i++){
+            Nave naveActual = getListaNaves().get(i);
+            if(naveActual.getNombre().equalsIgnoreCase(nombre))
+                return naveActual;
+        } 
+        return null;
+    }
+    
     public boolean eliminarNavePorNombre(String nombre){
         for (int i = 0; i < getListaNaves().size(); i++){
             Nave naveActual = getListaNaves().get(i);
@@ -35,35 +44,21 @@ public class ListaNaves {
             }}
         return false;
     }
-        
-    public boolean comprobacionRepetidoNombre(String nombre){
-        for (int i = 0; i < getListaNaves().size(); i++){
+    
+    public boolean naveExistente(String nombre, int año){
+        for(int i = 0; i < getListaNaves().size(); i++){
             Nave naveActual = getListaNaves().get(i);
-            if(naveActual.getNombre().equalsIgnoreCase(nombre))
+            if(naveActual.getNombre().equalsIgnoreCase(nombre) && naveActual.getAñoDeLanzamiento() == año){
                 return true;
-        } 
+            }
+        }
         return false;
     }
-    
-    public Nave buscarNavePorNombre(String nombre){
-        for (int i = 0; i < getListaNaves().size(); i++){
-            Nave naveActual = getListaNaves().get(i);
-            if(naveActual.getNombre().equalsIgnoreCase(nombre))
-                return naveActual;
-        } 
-        return null;
-
-    }
-    
-    public TiposDeNave tipoDeNave(String nombre){
-        for (int i = 0; i < getListaNaves().size(); i++){
-            Nave naveActual = getListaNaves().get(i);
-            if(naveActual.getNombre().equalsIgnoreCase(nombre)){
-                return naveActual.getTipoNave();
-            }
-        }   
-        return null;
-    }
-    
+        
+    public void iniciarExploracionGeneral() {
+        for (Nave nave : getListaNaves()) {
+            nave.iniciarMision();
+        }
+}
     
 }
