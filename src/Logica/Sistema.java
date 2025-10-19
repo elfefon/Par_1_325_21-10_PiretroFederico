@@ -27,7 +27,6 @@ public class Sistema{
             try{
                 System.out.println("Ingrese nombre: ");
                 String nombre = sc.nextLine();
-                corriendo = false;
                 return nombre;
             }catch(Exception e){
                 System.out.println("Ingrese un nombre");
@@ -42,7 +41,6 @@ public class Sistema{
             try{
                 System.out.println("Ingrese año de lanzamiento: ");
                 int año = Integer.parseInt(sc.nextLine());
-                corriendo = false;
                 return año;
             }catch(NumberFormatException e){
                 System.out.println("Ingrese un año numerico.");
@@ -57,7 +55,6 @@ public class Sistema{
             try{
                 System.out.println("Ingrese capacidad de tripulacion: ");
                 int capacidadT = Integer.parseInt(sc.nextLine());
-                corriendo = false;
                 return capacidadT;
             }catch(NumberFormatException e){
                 System.out.println("Ingrese un numero.");
