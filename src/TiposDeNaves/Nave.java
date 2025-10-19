@@ -18,7 +18,7 @@ public class Nave {
     }
     
     public void iniciarMision(){
-        System.out.println("No existe la posibilidad de iniciar una mision.");
+        System.out.println("Se ha iniciado la mision.");
     }
     
     @Override
