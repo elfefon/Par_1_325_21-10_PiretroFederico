@@ -5,19 +5,8 @@ import Logica.TiposDeMision;
 import Logica.TiposDeNave;
 import TiposDeNaves.Cargueros;
 import TiposDeNaves.CrucerosEstelares;
-import TiposDeNaves.Nave;
 import TiposDeNaves.NaveExploracion;
 import java.util.Scanner;
-
-// cosas por hacer:
-// comprobaciones de inputs tanto como de enteros como de escritos
-// manejo de errores mirar clase grabada o mirar ppt
-// arreglar funcion explorar que se sobreescribe =????
-//  podria crear algun tipo de variable boolean que tenga como objetivo saber si esta
-//  en viaje o explorando o no, y que compruebe el año en el que el usuario ingreso que 
-//  se realizaria el lanzamiento de la nave y que no quede en discordia con el hecho de que 
-//  quiere que explore ahora, o darle la opcion decambiar la fecha de lanzamiento????? mucho laburo!!!!! fin de semana.
-
 
 public class Main {
 
@@ -54,22 +43,20 @@ public class Main {
                     if (tipoIngresadoNave == 0){  
                         System.out.println("El tipo de nave que ingreso no coincide con el tipo que administramos. Pruebe de nuevo.");
                     }else{
-
-                        System.out.println("Ingrese nombre: ");
-                        String nombre = sc.nextLine();
                         
-                        if (ln.comprobacionRepetidoNombre(nombre)){
-                            System.out.println("Nombre ya utilizado, eliga otro");
-                            continue;
+                        String nombre = ss.ingresoNombre(sc);
+                        int año = ss.ingresoAño(sc);
+                        
+                        if (año < 2025 || año > 4000){  
+                            System.out.println("Ingrese un año realista.");
+                            break;
+                        }
+                        if (ln.naveExistente(nombre, año) == true){
+                            System.out.println("Nombre y año ya coinciden con una nave existente. Intente de nuevo");
+                            break;
                         }
                         
-                        System.out.println("Ingrese año de lanzamiento: ");
-                        int año = Integer.parseInt(sc.nextLine());
-                        
-                        //funcion que compare años y  no deje ingresar uno de antes de la fecha de hoy y no se exceda de los 3000 años (para mas realismo pa)
-                        
-                        System.out.println("Ingrese capacidad de tripulacion: ");
-                        int capacidadT = Integer.parseInt(sc.nextLine());
+                        int capacidadT = ss.ingresoCapacidadTripulacion(sc);
                         
                         switch (tipoIngresadoNave){
                             case 1 -> {
@@ -81,7 +68,7 @@ public class Main {
                                                     + "\n3. Contacto");
                                     
                                     int tipoDeMisionInput = Integer.parseInt(sc.nextLine());
-                                    // agregar comprobacion de input no solo con enteros sino con palabras
+
                                     if (tipoDeMisionInput == 1){
                                         NaveExploracion ne = new NaveExploracion(nombre, capacidadT, año, TiposDeNave.naveExploracion, TiposDeMision.CARTOGRAFIA);
                                         ln.agregarNave(ne);
@@ -100,84 +87,80 @@ public class Main {
                             }
                             case 2 -> {
                                 //cargueros
-                                try{
-                                    System.out.println("Ingrese cuantas toneladas es capaz de cargar (100min - 500max): ");
-                                    int cantToneladasInput = sc.nextInt();
-                                    if (cantToneladasInput <= 500 && cantToneladasInput >= 100){
-                                        Cargueros carguero = new Cargueros(nombre, capacidadT, año, TiposDeNave.cargueros, cantToneladasInput);
-                                        ln.agregarNave(carguero);
-                                        break;
-                                    }else{
-                                        System.out.println("Debe ingresar una cantidad de toneladas admisible...");
+                                do{    
+                                    try{
+                                        System.out.println("Ingrese cuantas toneladas es capaz de cargar (100min - 500max): ");
+                                        int cantToneladasInput = Integer.parseInt(sc.nextLine());
+                                        if (cantToneladasInput <= 500 && cantToneladasInput >= 100){
+                                            Cargueros carguero = new Cargueros(nombre, capacidadT, año, TiposDeNave.carguero, cantToneladasInput);
+                                            ln.agregarNave(carguero);
+                                            break;
+                                        }else{
+                                            System.out.println("Debe ingresar una cantidad de toneladas admisible...");
+                                        }
+                                    }catch(NumberFormatException e){
+                                        System.out.println("Debe de ingresar una cantidad numerica de toneladas.");
                                     }
-                                }catch(Exception e){
-                                    System.out.println("Debe de ingresar una cantidad numerica de toneladas.");
-                                }
+                                }while(true);
                             }
                             case 3 -> {
                                 //cruceros estelares
                                 try{
                                     System.out.println("Ingrese el limite de pasajeros que puede haber: ");
                                     int cantPasajeros = Integer.parseInt(sc.nextLine());
-                                    CrucerosEstelares ce = new CrucerosEstelares(nombre, capacidadT, año, TiposDeNave.crucerosEstelares, cantPasajeros);
+                                    CrucerosEstelares ce = new CrucerosEstelares(nombre, capacidadT, año, TiposDeNave.cruceroEstelar, cantPasajeros);
                                     ln.agregarNave(ce);
                                 }catch(NumberFormatException e){
                                     System.out.println("Ingrese un numero.");
                                 }
-                                }
-                                }
+                            }
+                            }
                     }
                     break; 
                 }
                 case 2 -> {
-                    try{
-                        System.out.println("Ingrese el nombre de la nave que quiere eliminar: ");
-                        String nombreEliminado = sc.nextLine();
-                        boolean naveEliminada = ln.eliminarNavePorNombre(nombreEliminado);
+                    if(ln.getListaNaves().size() == 0){
+                        System.out.println("No hay naves existentes para poder eliminar alguna.");
+                    }else{
+                        try{
+                            System.out.println("Ingrese el nombre de la nave que quiere eliminar: ");
+                            String nombreEliminado = sc.nextLine();
+                            boolean naveEliminada = ln.eliminarNavePorNombre(nombreEliminado);
 
-                        if (naveEliminada == false){
-                            System.out.println("La nave '" + nombreEliminado + "' no pudo ser eliminada, intente de nuevo.");
-                        }else{
-                            System.out.println("El "+ nombreEliminado + " fue eliminado.");
+                            if (naveEliminada == false){
+                                System.out.println("La nave '" + nombreEliminado + "' no pudo ser eliminada, intente de nuevo.");
+                            }else{
+                                System.out.println("El "+ nombreEliminado + " fue eliminado.");
+                            }
+                        }catch(Exception e){
+                            System.out.println("Ingrese un nombre.");
                         }
-                        break;
-                    }catch(Exception e){
-                        System.out.println("Ingrese un nombre.");
                     }
-                    
+                    break;
                 }
-                
                 case 3 -> {
-                    ln.mostrarNaves();
-                    break;
-                }
-                
-                case 4 -> {
-                    try{
-                        System.out.println("¿Que nave quiere que realice exploracion? (ingrese nombre): ");
-                        String nombreNave = sc.nextLine();
-                        Nave naveEncontrada = ln.buscarNavePorNombre(nombreNave);
-
-                        if (naveEncontrada != null) {
-                            naveEncontrada.iniciarMision();
-                        } else {
-                            System.out.println("No se encontro ninguna nave con ese nombre.");
-                        }
-                        break;                        
-
-                    }catch(Exception e){
-                        System.out.println("Ingrese un nombre. ");
+                    if(ln.getListaNaves().size() == 0){
+                        System.out.println("No hay naves existentes");
+                    }else{
+                        ln.mostrarNaves();
                     }
                     break;
                 }
-                
+                case 4 -> {
+                    if(ln.getListaNaves().size() == 0){
+                        System.out.println("No hay naves existentes que puedan iniciar mision.");
+                    }else{
+                        ln.iniciarExploracionGeneral();
+                    }
+                    break;
+                }
                 case 5 -> {
                     System.out.println("Saliendo del sistema...");
                     corriendo = false;
                     break;
                 }
                 }    
-            }catch(NumberFormatException e){ //averiguar porque sale siempre despues de un input
+            }catch(NumberFormatException e){
                 System.out.println("Ingrese un numero (1, 2, 3, 4 o 5)");
             }
         }while(corriendo == true);
