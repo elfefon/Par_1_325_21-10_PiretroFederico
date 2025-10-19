@@ -26,7 +26,7 @@ public class CrucerosEstelares extends Nave implements Exploracion{
 
     @Override
     public void explorar() {
-        System.out.println("Los cruceros estelares no pueden iniciar expploraciones");
+        System.out.println("Los cruceros estelares no pueden iniciar exploraciones debido a que llevan pasajeros.");
     }
     
     
